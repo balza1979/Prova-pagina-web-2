@@ -16,9 +16,6 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v3
 
-    - name: Debug PDF
-      run: ls -l *.pdf || echo "Nessun PDF trovato"
-
     - name: Genera lista PDF
       run: |
         echo "<!DOCTYPE html>" > pdf-list.html
@@ -28,7 +25,9 @@ jobs:
 
         shopt -s nullglob
         for file in *.pdf; do
-          echo "<div class='card'><span>📄 $file</span><button onclick=\"window.open('$file','_blank')\">Apri</button></div>" >> pdf-list.html
+          url="https://balza1979.github.io/Prova-pagina-web-2/$file"
+          viewer="https://docs.google.com/gview?embedded=1&url=$url"
+          echo "<div class='card'><span>📄 $file</span><button onclick=\"window.open('$viewer','_blank')\">Apri</button></div>" >> pdf-list.html
         done
 
         echo "</body></html>" >> pdf-list.html
@@ -38,5 +37,5 @@ jobs:
         git config --global user.name "github-actions"
         git config --global user.email "actions@github.com"
         git add pdf-list.html
-        git commit -m "Aggiornata lista PDF automatica" || echo "Nessuna modifica"
+        git commit -m "Aggiornata lista PDF con Google Viewer" || echo "Nessuna modifica"
         git push
