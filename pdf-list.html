@@ -4,4 +4,13 @@
 </head><body><h1>Documenti PDF</h1>
 <div class='card'><span>📄 Acrobat-for-Edge.pdf</span><button onclick="window.open('https://docs.google.com/gview?embedded=1&url=https://balza1979.github.io/Prova-pagina-web-2/Acrobat-for-Edge.pdf','_blank')">Apri</button></div>
 <div class='card'><span>📄 doc gita bologna1837753IHAORWJ8DC5GSZOUOETU1LR5Y3W5FJZWHJX4DTI9.pdf</span><button onclick="window.open('https://docs.google.com/gview?embedded=1&url=https://balza1979.github.io/Prova-pagina-web-2/doc gita bologna1837753IHAORWJ8DC5GSZOUOETU1LR5Y3W5FJZWHJX4DTI9.pdf','_blank')">Apri</button></div>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  document.querySelectorAll('a[href$=".pdf"]').forEach(function(link) {
+    link.setAttribute("target", "_blank");
+    link.setAttribute("rel", "noopener");
+  });
+});
+</script>
+
 </body></html>
