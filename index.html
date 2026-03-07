@@ -48,9 +48,10 @@ h1 {
 // CONFIGURA QUI IL TUO REPO
 const owner = "balza1979";
 const repo = "Prova-pagina-web-2";
+const folder = "pdf"; // <-- cartella PDF
 
-// URL API GitHub per leggere i file nella root
-const apiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/`;
+// URL API GitHub per leggere i file nella cartella /pdf/
+const apiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${folder}`;
 
 fetch(apiUrl)
   .then(response => response.json())
@@ -60,13 +61,14 @@ fetch(apiUrl)
 
     pdfs.forEach(pdf => {
       const encodedName = encodeURIComponent(pdf.name);
+      const pdfUrl = `${folder}/${encodedName}`;
 
       const card = document.createElement("div");
       card.className = "card";
 
       card.innerHTML = `
         <span>📄 ${pdf.name}</span>
-        <button onclick="window.open('${encodedName}', '_blank')">Apri</button>
+        <button onclick="window.open('${pdfUrl}', '_blank')">Apri</button>
       `;
 
       container.appendChild(card);
