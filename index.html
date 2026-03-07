@@ -45,12 +45,12 @@ h1 {
 <div id="pdf-container"></div>
 
 <script>
-// CONFIGURA QUI IL TUO REPO
+// CONFIGURAZIONE
 const owner = "balza1979";
 const repo = "Prova-pagina-web-2";
-const folder = "pdf"; // <-- cartella PDF
+const folder = "pdf";
 
-// URL API GitHub per leggere i file nella cartella /pdf/
+// API GitHub per leggere la cartella /pdf/
 const apiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${folder}`;
 
 fetch(apiUrl)
@@ -61,7 +61,9 @@ fetch(apiUrl)
 
     pdfs.forEach(pdf => {
       const encodedName = encodeURIComponent(pdf.name);
-      const pdfUrl = `${folder}/${encodedName}`;
+
+      // URL ASSOLUTO → FUNZIONA SU IPHONE
+      const pdfUrl = `https://${owner}.github.io/${repo}/${folder}/${encodedName}`;
 
       const card = document.createElement("div");
       card.className = "card";
@@ -81,3 +83,4 @@ fetch(apiUrl)
 
 </body>
 </html>
+
