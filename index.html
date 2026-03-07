@@ -1,16 +1,81 @@
 <!DOCTYPE html>
-<html lang='it'><head><meta charset='UTF-8'><title>Lista PDF</title>
-<style>body{font-family:Arial;background:#eef1f5;padding:40px;}h1{text-align:center;}.card{background:white;padding:20px;margin:15px auto;max-width:500px;border-radius:10px;box-shadow:0 4px 10px rgba(0,0,0,0.1);display:flex;justify-content:space-between;align-items:center;}.card button{background:#28a745;color:white;border:none;padding:10px 18px;border-radius:6px;cursor:pointer;transition:0.2s;}.card button:hover{background:#1e7e34;}</style>
-</head><body><h1>Documenti PDF</h1>
-<div class='card'><span>📄 Acrobat-for-Edge.pdf</span><button onclick="window.open('https://docs.google.com/gview?embedded=1&url=https://balza1979.github.io/Prova-pagina-web-2/Acrobat-for-Edge.pdf','_blank')">Apri</button></div>
-<div class='card'><span>📄 doc gita bologna1837753IHAORWJ8DC5GSZOUOETU1LR5Y3W5FJZWHJX4DTI9.pdf</span><button onclick="window.open('https://docs.google.com/gview?embedded=1&url=https://balza1979.github.io/Prova-pagina-web-2/doc gita bologna1837753IHAORWJ8DC5GSZOUOETU1LR5Y3W5FJZWHJX4DTI9.pdf','_blank')">Apri</button></div>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<title>Documenti PDF</title>
+
+<style>
+body {
+  font-family: Arial;
+  background: #eef1f5;
+  padding: 40px;
+}
+h1 {
+  text-align: center;
+}
+.card {
+  background: white;
+  padding: 20px;
+  margin: 15px auto;
+  max-width: 500px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.card button {
+  background: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+.card button:hover {
+  background: #0056b3;
+}
+</style>
+</head>
+
+<body>
+
+<h1>Documenti PDF</h1>
+<div id="pdf-container"></div>
+
 <script>
-document.addEventListener("DOMContentLoaded", function() {
-  document.querySelectorAll('a[href$=".pdf"]').forEach(function(link) {
-    link.setAttribute("target", "_blank");
-    link.setAttribute("rel", "noopener");
+// CONFIGURA QUI IL TUO REPO
+const owner = "balza1979";
+const repo = "Prova-pagina-web-2";
+
+// URL API GitHub per leggere i file nella root
+const apiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/`;
+
+fetch(apiUrl)
+  .then(response => response.json())
+  .then(files => {
+    const pdfs = files.filter(f => f.name.toLowerCase().endsWith(".pdf"));
+    const container = document.getElementById("pdf-container");
+
+    pdfs.forEach(pdf => {
+      const encodedName = encodeURIComponent(pdf.name);
+
+      const card = document.createElement("div");
+      card.className = "card";
+
+      card.innerHTML = `
+        <span>📄 ${pdf.name}</span>
+        <button onclick="window.open('${encodedName}', '_blank')">Apri</button>
+      `;
+
+      container.appendChild(card);
+    });
+  })
+  .catch(err => {
+    console.error("Errore nel caricamento dei PDF:", err);
   });
-});
 </script>
 
-</body></html>
+</body>
+</html>
