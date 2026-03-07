@@ -63,7 +63,7 @@ fetch(apiUrl)
       const encodedName = encodeURIComponent(pdf.name);
 
       // URL ASSOLUTO → FUNZIONA SU IPHONE
-      const pdfUrl = `https://${owner}.github.io/${repo}/${folder}/${encodedName}`;
+    const pdfUrl = `viewer.html?file=${encodedName}`;
 
       const card = document.createElement("div");
       card.className = "card";
